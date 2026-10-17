@@ -1,0 +1,21 @@
+Options -Indexes
+DirectoryIndex index.php
+
+# Keep configuration and local data private
+<FilesMatch "^(config(\.sample)?\.php|.*\.sqlite|README.*\.md)$">
+  Require all denied
+</FilesMatch>
+
+# Force HTTPS (remove these 3 lines if your SSL certificate is not active yet)
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType text/css "access plus 7 days"
+  ExpiresByType application/javascript "access plus 7 days"
+</IfModule>
